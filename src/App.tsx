@@ -17,23 +17,26 @@ function App() {
   );
 }
 const Container = styled.div`
-  min-width: 375px;
-  width: 100%;
   min-height: 828px;
   flex-direction: column;
 `;
 const BGimage = styled.div`
   background-image: url(${bgImage});
+  background-size: cover;
   background-repeat: no-repeat;
-  width: 100%;
+  width: 100vw;
   height: 300px;
   text-align: center;
   padding: 25px 0 0 0;
+  filter: brightness(1.25);
 `;
 const Title = styled.h2`
   font-weight: 500;
   font-size: 26px;
   color: #ffffff;
   margin-bottom: 29px;
+  @media only screen and (min-width: 675px) {
+    font-size: 32px;
+  }
 `;
 export default App;
