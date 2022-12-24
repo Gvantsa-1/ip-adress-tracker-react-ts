@@ -2,20 +2,27 @@ import React from "react";
 import styled from "styled-components";
 import trackerLogo from "../assets/icon-arrow.svg";
 
-export const IPtracker = () => {
+export const IPtracker = (props: any) => {
+  const { handleIp } = props;
   return (
-    <InputBox>
-      <Input placeholder="Search for any IP address or domain" />
-      <Button>
-        <BtnLogo />
-      </Button>
-    </InputBox>
+    <form onSubmit={() => handleIp}>
+      <InputBox>
+        <Input
+          type="text"
+          name="ipaddress"
+          id="ipaddress"
+          placeholder="Search for any IP address or domain"
+        />
+        <Button type="submit">
+          <BtnLogo />
+        </Button>
+      </InputBox>
+    </form>
   );
 };
 const InputBox = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
 `;
 const Input = styled.input`
   background-color: #ffffff;
@@ -31,7 +38,10 @@ const Input = styled.input`
     visibility: hidden;
   }
   @media only screen and (min-width: 675px) {
-    width: 390px;
+    &::placeholder {
+      visibility: visible;
+    }
+    width: 555px;
   }
   @media only screen and (min-width: 975px) {
     &::placeholder {

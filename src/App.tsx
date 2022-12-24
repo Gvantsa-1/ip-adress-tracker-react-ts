@@ -5,13 +5,14 @@ import { IPmap } from "./components/IPmap";
 import { IPaddress } from "./components/IPaddress";
 import { IPtracker } from "./components/IPtracker";
 function App() {
+  const handleIp = () => {};
   return (
     <Container>
       <BGimage>
         <Title>IP Address Tracker</Title>
-        <IPtracker />
+        <IPtracker handleIp={handleIp} />
         <IPaddress />
-      </BGimage>
+      </BGimage>{" "}
       <IPmap />
     </Container>
   );
@@ -28,7 +29,7 @@ const BGimage = styled.div`
   height: 300px;
   text-align: center;
   padding: 25px 0 0 0;
-  filter: brightness(1.25);
+  filter: brightness(1.2);
 `;
 const Title = styled.h2`
   font-weight: 500;

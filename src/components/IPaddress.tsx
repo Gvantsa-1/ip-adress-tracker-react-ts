@@ -1,28 +1,58 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import Axios from "axios";
 
 export const IPaddress = () => {
+  const [country, setCountry] = useState<string>("");
+  const [city, setCity] = useState<string>("");
+  const [ip, setIP] = useState<string>("");
+  const [isp, setIsp] = useState<string>("");
+  const [postal, setPostal] = useState<string>("");
+  const [timezone, setTimezone] = useState<string>("");
+  const KEY = process.env.REACT_APP_API_KEY;
+
+  const getData = async () => {
+    const res = await Axios.get(
+      "https://geo.ipify.org/api/v2/country,city?apiKey=${KEY}=&{ip}"
+    );
+
+    console.log(res.data);
+    setIP(res.data.ip);
+    setCountry(res.data.location.country);
+    setCity(res.data.location.city);
+    setIsp(res.data.isp);
+    setPostal(res.data.location.postalCode);
+    setTimezone(res.data.location.timezone);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <Container>
       <IpAddress>
         <h3>IP Address</h3>
-        <h2>cv</h2>
+        <h2>{ip}</h2>
       </IpAddress>
       <Location>
         <h3>Location</h3>
-        <h2>cvc</h2>
+        <h2>
+          {country}, {city} {postal}
+        </h2>
       </Location>
       <Timezone>
         <h3>Timezone</h3>
-        <h2>cxc</h2>
+        <h2>{timezone}</h2>
       </Timezone>
       <Isp>
         <h3>ISP</h3>
-        <h2>vcxxv</h2>
+        <h2>{isp}</h2>
       </Isp>
     </Container>
   );
 };
+
 const Container = styled.div`
   width: 327px;
   height: 294px;
@@ -30,6 +60,7 @@ const Container = styled.div`
   background-color: #ffffff;
   margin: 24px auto;
   padding: 26px 24px;
+
   h3 {
     margin-bottom: 7px;
     font-weight: 700;
@@ -57,11 +88,13 @@ const Container = styled.div`
       line-height: 30px;
     }
   }
+
   @media only screen and (min-width: 675px) {
-    width: 448px;
+    width: 613px;
     margin: 48px auto;
+    height: 330px;
   }
-  @media only screen and (min-width: 975px) {
+  @media only screen and (min-width: 1175px) {
     width: 1110px;
     height: 161px;
     display: flex;
@@ -73,31 +106,31 @@ const Container = styled.div`
 `;
 const IpAddress = styled.div`
   margin-bottom: 24px;
-  @media only screen and (min-width: 975px) {
+  @media only screen and (min-width: 1175px) {
     width: 213px;
     margin-right: 64px;
-    border-right: 1px solid #000000;
+    border-right: 1px solid #00000063;
   }
 `;
 const Location = styled.div`
   margin-bottom: 24px;
-  @media only screen and (min-width: 975px) {
+  @media only screen and (min-width: 1175px) {
     width: 213px;
     margin-right: 64px;
-    border-right: 1px solid #000000;
+    border-right: 1px solid #00000063;
   }
 `;
 const Timezone = styled.div`
   margin-bottom: 24px;
-  @media only screen and (min-width: 975px) {
+  @media only screen and (min-width: 1175px) {
     width: 213px;
     margin-right: 64px;
-    border-right: 1px solid #000000;
+    border-right: 1px solid #00000063;
   }
 `;
 const Isp = styled.div`
   margin-bottom: 24px;
-  @media only screen and (min-width: 975px) {
+  @media only screen and (min-width: 1175px) {
     width: 213px;
   }
 `;
