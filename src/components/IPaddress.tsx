@@ -2,32 +2,8 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Axios from "axios";
 
-export const IPaddress = () => {
-  const [country, setCountry] = useState<string>("");
-  const [city, setCity] = useState<string>("");
-  const [ip, setIP] = useState<string>("");
-  const [isp, setIsp] = useState<string>("");
-  const [postal, setPostal] = useState<string>("");
-  const [timezone, setTimezone] = useState<string>("");
-  const KEY = process.env.REACT_APP_API_KEY;
-
-  const getData = async () => {
-    const res = await Axios.get(
-      "https://geo.ipify.org/api/v2/country,city?apiKey=${KEY}=&{ip}"
-    );
-
-    console.log(res.data);
-    setIP(res.data.ip);
-    setCountry(res.data.location.country);
-    setCity(res.data.location.city);
-    setIsp(res.data.isp);
-    setPostal(res.data.location.postalCode);
-    setTimezone(res.data.location.timezone);
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
+export const IPaddress = (props: any) => {
+  const { country, city, isp, ip, postal, timezone } = props;
 
   return (
     <Container>
@@ -71,6 +47,7 @@ const Container = styled.div`
     text-transform: uppercase;
     opacity: 0.5px;
     letter-spacing: 1.75px;
+    height: 15px;
 
     @media only screen and (min-width: 675px) {
       font-size: 12px;
@@ -82,6 +59,7 @@ const Container = styled.div`
     line-height: 24px;
     color: #2c2c2c;
     font-family: "Rubik", sans-serif;
+    height: 25px;
 
     @media only screen and (min-width: 675px) {
       font-size: 26px;

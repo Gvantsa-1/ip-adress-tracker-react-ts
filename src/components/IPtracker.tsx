@@ -1,23 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import trackerLogo from "../assets/icon-arrow.svg";
 
 export const IPtracker = (props: any) => {
-  const { handleIp } = props;
+  const { handleIp, inputChange } = props;
   return (
-    <form onSubmit={() => handleIp}>
-      <InputBox>
-        <Input
-          type="text"
-          name="ipaddress"
-          id="ipaddress"
-          placeholder="Search for any IP address or domain"
-        />
-        <Button type="submit">
-          <BtnLogo />
-        </Button>
-      </InputBox>
-    </form>
+    <InputBox>
+      <Input
+        onChange={inputChange}
+        type="text"
+        name="ipaddress"
+        id="ipaddress"
+        placeholder="Search for any IP address or domain"
+      />
+      <Button onClick={handleIp}>
+        <BtnLogo />
+      </Button>
+    </InputBox>
   );
 };
 const InputBox = styled.div`
