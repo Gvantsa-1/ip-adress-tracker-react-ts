@@ -31,7 +31,7 @@ export const IPaddress = (props: any) => {
 
 const Container = styled.div`
   width: 327px;
-  height: 294px;
+  height: 304px;
   border-radius: 15px;
   background-color: #ffffff;
   margin: 24px auto;

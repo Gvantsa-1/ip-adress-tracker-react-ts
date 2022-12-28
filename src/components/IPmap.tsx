@@ -1,6 +1,6 @@
-import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import L from "leaflet";
 import MarkerClusterGroup from "react-leaflet-markercluster";
@@ -22,63 +22,30 @@ const svgIcon = L.divIcon({
 });
 L.Marker.prototype.options.icon = svgIcon;
 
-export const IPmap = () => {
-  const [lat, setLat] = useState(41.716667);
-  const [long, setLong] = useState(44.783333);
+export const IPmap = (props: any) => {
+  const { lat, lng } = props;
 
   const mapRef = useRef();
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      setLat(position.coords.latitude);
-      setLong(position.coords.longitude);
-    });
-  }, []);
-  return (
-    <Container>
-      <MapContainer
-        style={{
-          width: "100vw",
-          height: "70vh",
-          position: "absolute",
-          zIndex: "1",
-          bottom: -100,
-        }}
-        className="markercluster-map"
-        center={[51.0, 19.0]}
-        zoom={5}
-        maxZoom={18}
-      >
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        />
 
-        <Marker position={[49.8397, 24.0297]} />
-        <Marker position={[52.2297, 21.0122]} />
-        <Marker position={[51.5074, -0.0901]} />
-      </MapContainer>
-    </Container>
+  return (
+    <MapContainer
+      style={{
+        width: "100vw",
+        height: "70vh",
+        zIndex: "0",
+      }}
+      className="markercluster-map"
+      center={[lat, lng]}
+      zoom={4}
+      maxZoom={18}
+    >
+      <TileLayer
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+      />
+
+      <Marker position={[lat, lng]} />
+    </MapContainer>
   );
 };
-const Container = styled.div`
-  width: 100vw;
-  height: 100vw;
-`;
-
-//   return (
-//     <MapContainer
-//       className="markercluster-map"
-//       center={[51.0, 19.0]}
-//       zoom={4}
-//       maxZoom={18}
-//     >
-//       <TileLayer
-//         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-//         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-//       />
-
-//       <Marker position={[49.8397, 24.0297]} />
-//       <Marker position={[52.2297, 21.0122]} />
-//       <Marker position={[51.5074, -0.0901]} />
-//     </MapContainer>
-//
+const Container = styled.div``;

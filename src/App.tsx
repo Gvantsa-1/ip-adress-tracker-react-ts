@@ -14,13 +14,16 @@ function App() {
   const [isp, setIsp] = useState<string>("");
   const [postal, setPostal] = useState<string>("");
   const [timezone, setTimezone] = useState<string>("");
+  const [lat, setLat] = useState<number>(41.125);
+  const [lng, setLng] = useState<number>(41.0);
+  const coords = country;
   const inputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
   console.log(value);
   const getData = async () => {
     const res = await Axios.get(
-      `https://geo.ipify.org/api/v2/country,city?apiKey=at_3YkRMFfoOqgVIDDfeW2V8TxuxQViN&ipAddress=${value}`
+      `https://geo.ipify.org/api/v2/country,city?apiKey=at_I4oBkZ2jnXRcD9bc6Cx0b0tjMrpZ3&ipAddress=${value}`
     );
     setIP(res.data.ip);
     setCountry(res.data.location.country);
@@ -28,10 +31,12 @@ function App() {
     setIsp(res.data.isp);
     setPostal(res.data.location.postalCode);
     setTimezone(res.data.location.timezone);
-    console.log(res.data);
+    setLat(res.data.location.lat);
+    setLng(res.data.location.lng);
+    console.log(res.data.location.lat);
+    console.log(res.data.location.lng);
   };
   const handleIp = () => {
-    alert("hi");
     getData();
   };
   useEffect(() => {
@@ -42,6 +47,7 @@ function App() {
     <Container>
       <BGimage>
         <Title>IP Address Tracker</Title>
+
         <IPtracker handleIp={handleIp} inputChange={inputChange} />
         <IPaddress
           ip={ip}
@@ -52,12 +58,11 @@ function App() {
           timezone={timezone}
         />
       </BGimage>
-      <IPmap />
+      <IPmap country={country} getData={getData} lat={lat} lng={lng} />
     </Container>
   );
 }
 const Container = styled.div`
-  min-height: 828px;
   flex-direction: column;
 `;
 const BGimage = styled.div`
@@ -69,14 +74,18 @@ const BGimage = styled.div`
   text-align: center;
   padding: 25px 0 0 0;
   filter: brightness(1.2);
+  position: relative;
+  z-index: 10;
 `;
 const Title = styled.h2`
   font-weight: 500;
   font-size: 26px;
   color: #ffffff;
   margin-bottom: 29px;
+
   @media only screen and (min-width: 675px) {
     font-size: 32px;
   }
 `;
+
 export default App;
