@@ -16,7 +16,7 @@ function App() {
   const [timezone, setTimezone] = useState<string>("");
   const [lat, setLat] = useState<number>(41.125);
   const [lng, setLng] = useState<number>(41.0);
-  const coords = country;
+
   const inputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
