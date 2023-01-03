@@ -64,6 +64,10 @@ function App() {
 }
 const Container = styled.div`
   flex-direction: column;
+  @media only screen and (min-width: 480px) {
+    height: 100vh;
+    overflow: hidden;
+  }
 `;
 const BGimage = styled.div`
   background-image: url(${bgImage});
